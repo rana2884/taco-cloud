@@ -35,14 +35,14 @@ public class OrderController {
     }
 
     @PostMapping
-    public String processOrder(@Valid Order order, BindingResult errors, SessionStatus sessionStatus) {
+    public String processOrder(@Valid Order order, BindingResult errors, SessionStatus sessionStatus, Model model) {
         if (errors.hasErrors()) {
             return "orderForm";
         }
 
         orderRepo.save(order);
         sessionStatus.setComplete();
-        //log.info("Order submitted: " + order);
+        log.info("Order submitted: " + order);
         return "redirect:/";
     }
 

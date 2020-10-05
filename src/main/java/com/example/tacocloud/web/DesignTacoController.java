@@ -2,7 +2,6 @@ package com.example.tacocloud.web;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-import java.util.Arrays;
 import java.util.List;
 
 import com.example.tacocloud.data.IngredientRepository;
@@ -29,12 +28,12 @@ import com.example.tacocloud.Ingredient.Type;
 public class DesignTacoController {
 
     private final IngredientRepository ingredientRepo;
-    private TacoRepository designRepo;
+    private TacoRepository tacoRepo;
 
     @Autowired
-    public DesignTacoController(IngredientRepository ingredientRepo, TacoRepository designRepo){
+    public DesignTacoController(IngredientRepository ingredientRepo, TacoRepository tacoRepo){
         this.ingredientRepo = ingredientRepo;
-        this.designRepo = designRepo;
+        this.tacoRepo = tacoRepo;
     }
 
     @ModelAttribute(name="order")
@@ -64,12 +63,12 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processDesign(@Valid Taco design, BindingResult errors, @ModelAttribute Order order){
+    public String processDesign(@Valid Taco taco, BindingResult errors, @ModelAttribute Order order){
         if(errors.hasErrors()){
             return "design";
         }
 
-        Taco saved = designRepo.save(design);
+        Taco saved = tacoRepo.save(taco);
         order.addDesign(saved);
 
         return "redirect:/orders/current";
