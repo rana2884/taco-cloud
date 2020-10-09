@@ -8,7 +8,12 @@
 <body>
 <h1>Design your taco!</h1>
 <img th:src="@{/images/taco-cloud.png}"/>
-<form method="POST" th:object="${taco}">
+
+<form method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout"/>
+</form>
+
+<form method="POST" th:object="${taco}" th:action="@{/design}">
     <span class="validationError"
               th:if="${#fields.hasErrors('ingredients')}"
               th:errors="*{ingredients}">Ingredient Error</span>
